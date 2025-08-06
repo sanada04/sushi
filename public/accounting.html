@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会計システム - 勤怠管理システム</title>
+    <link rel="stylesheet" href="accounting.css">
+</head>
+<body>
+    <div class="accounting-container">
+        <!-- 右側固定メニュー -->
+        <div id="sideMenu" class="side-menu">
+            <div class="side-menu-header">
+                <h3>メニュー</h3>
+                <button id="toggleSideMenu" class="toggle-btn">×</button>
+            </div>
+            <div class="side-menu-content">
+                <a href="index.html" class="menu-item">
+                    <div class="menu-icon">🏠</div>
+                    <span>ダッシュボード</span>
+                </a>
+                <div class="menu-item active">
+                    <div class="menu-icon">💰</div>
+                    <span>会計システム</span>
+                </div>
+                <div class="menu-item" onclick="showMessage('機能準備中です', 'success')">
+                    <div class="menu-icon">📊</div>
+                    <span>レポート</span>
+                </div>
+                <div class="menu-item" onclick="showMessage('機能準備中です', 'success')">
+                    <div class="menu-icon">⚙️</div>
+                    <span>設定</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- メニュートグルボタン -->
+        <button id="showSideMenu" class="show-menu-btn hidden">☰</button>
+        
+        <header class="accounting-header">
+            <h1>🍣 寿司の華 - 会計システム</h1>
+            <a href="index.html" class="close-btn">🏠</a>
+        </header>
+
+        <main class="accounting-main">
+            <!-- 商品選択エリア -->
+            <div class="product-section">
+                <h2>商品選択</h2>
+                <div class="product-grid" id="productGrid">
+                    <!-- 商品は JavaScript で動的に生成 -->
+                </div>
+                
+                <!-- カスタム商品追加 -->
+                <div class="custom-product">
+                    <h3>カスタム商品</h3>
+                    <div class="custom-form">
+                        <input type="text" id="customName" placeholder="商品名" class="custom-input">
+                        <input type="number" id="customPrice" placeholder="単価" class="custom-input" min="0">
+                        <button onclick="addCustomProduct()" class="add-btn">追加</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 計算エリア -->
+            <div class="calculation-section">
+                <h2>会計計算</h2>
+                
+                <!-- 選択した商品一覧 -->
+                <div class="selected-items" id="selectedItems">
+                    <div class="empty-cart">
+                        <p>商品を選択してください</p>
+                    </div>
+                </div>
+
+                <!-- 合計金額 -->
+                <div class="total-section">
+                    <div class="subtotal">
+                        <span>小計:</span>
+                        <span id="subtotal">¥0</span>
+                    </div>
+                    <div class="tax">
+                        <span>消費税 (10%):</span>
+                        <span id="tax">¥0</span>
+                    </div>
+                    <div class="total">
+                        <span>合計:</span>
+                        <span id="total">¥0</span>
+                    </div>
+                </div>
+
+                <!-- アクションボタン -->
+                <div class="action-buttons">
+                    <button onclick="copyTotal()" class="copy-btn">金額をコピー</button>
+                    <button onclick="clearAll()" class="clear-btn">クリア</button>
+                </div>
+
+                <!-- コピー成功メッセージ -->
+                <div id="copyMessage" class="copy-message hidden">
+                    金額をコピーしました！
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="accounting.js"></script>
+</body>
+</html>

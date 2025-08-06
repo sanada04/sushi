@@ -1,0 +1,1171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #2c1810 0%, #3d2817 50%, #4a3425 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.screen {
+    width: 100%;
+    max-width: 800px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ログイン画面 */
+.login-form {
+    background: linear-gradient(135deg, #f5f1eb 0%, #ede4d3 100%);
+    padding: 40px;
+    border-radius: 15px;
+    border: 2px solid #d4af37;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.login-form h1 {
+    color: #8b4513;
+    margin-bottom: 10px;
+    font-size: 2.5em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h2 {
+    margin-bottom: 30px;
+    color: #5d4e37;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+button {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.demo-accounts {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.demo-accounts h3 {
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.demo-accounts ul {
+    margin-left: 20px;
+}
+
+.demo-accounts li {
+    margin-bottom: 5px;
+    font-family: monospace;
+    background: #e9ecef;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+/* フォーム切り替え */
+.switch-form {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e1e1e1;
+    text-align: center;
+}
+
+.link-btn {
+    background: none;
+    border: none;
+    color: #667eea;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: inherit;
+    padding: 0;
+}
+
+.link-btn:hover {
+    color: #764ba2;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 成功メッセージ */
+.success-message {
+    color: #27ae60;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+/* フォームのヘルプテキスト */
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+    font-size: 0.85em;
+}
+
+/* メイン画面 */
+#mainScreen {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(45deg, #8b4513, #a0522d, #cd853f);
+    color: white;
+    padding: 20px;
+    border: 2px solid #d4af37;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.8em;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#logoutBtn {
+    background: rgba(212, 175, 55, 0.8);
+    border: 2px solid #d4af37;
+    color: #5d4e37;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#logoutBtn:hover {
+    background: #d4af37;
+    color: white;
+    transform: scale(1.05);
+}
+
+main {
+    padding: 30px;
+}
+
+/* タブメニュー */
+.tab-menu {
+    display: flex;
+    border-bottom: 2px solid #d4af37;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+    border-radius: 8px 8px 0 0;
+    padding: 5px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.3s;
+    color: #666;
+}
+
+.tab-btn.active {
+    color: #8b4513;
+    border-bottom-color: #a0522d;
+    font-weight: 600;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.1));
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.2);
+}
+
+.tab-btn:hover {
+    color: #8b4513;
+    background: rgba(212, 175, 55, 0.2);
+    transform: none;
+    box-shadow: none;
+}
+
+.tab-content {
+    display: block;
+}
+
+.tab-content.hidden {
+    display: none;
+}
+
+.attendance-controls {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.btn-checkin, .btn-checkout {
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 10px;
+    border-radius: 10px;
+    min-width: 120px;
+}
+
+.btn-checkin {
+    background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+
+.btn-checkout {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+
+.current-time {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.current-time h3 {
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+#currentTime {
+    font-size: 2em;
+    font-weight: 600;
+    color: #333;
+    font-family: monospace;
+}
+
+/* 出勤状況表示 */
+.attendance-status {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.attendance-status h3 {
+    color: #667eea;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.online-count {
+    background: #2ecc71;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    min-width: 30px;
+}
+
+/* 従業員一覧 */
+.employee-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.employee-item {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.employee-item.online {
+    border-left-color: #2ecc71;
+    background: linear-gradient(135deg, #ffffff 0%, #f0fff4 100%);
+}
+
+.employee-item.offline {
+    border-left-color: #95a5a6;
+    opacity: 0.7;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.employee-item.absent {
+    border-left-color: #bdc3c7;
+    opacity: 0.5;
+    background: linear-gradient(135deg, #ffffff 0%, #f1f2f6 100%);
+}
+
+/* アバター */
+.employee-avatar {
+    flex-shrink: 0;
+}
+
+.avatar-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+.avatar-circle.online {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+}
+
+.avatar-circle.offline {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+}
+
+.avatar-circle.absent {
+    background: linear-gradient(135deg, #bdc3c7, #95a5a6);
+}
+
+.avatar-circle.owner-avatar.online {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+}
+
+.avatar-circle.owner-avatar.offline {
+    background: linear-gradient(135deg, #d35400, #e67e22);
+}
+
+.avatar-circle.owner-avatar.absent {
+    background: linear-gradient(135deg, #e67e22, #d35400);
+}
+
+/* 従業員情報 */
+.employee-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.employee-name {
+    font-weight: 600;
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* オーナーバッジ */
+.role-badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.role-badge.owner {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+    box-shadow: 0 2px 4px rgba(243, 156, 18, 0.3);
+}
+
+.employee-status {
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.status-online-text {
+    color: #2ecc71;
+}
+
+.status-offline-text {
+    color: #7f8c8d;
+}
+
+.status-absent-text {
+    color: #95a5a6;
+}
+
+.employee-time {
+    font-size: 0.8em;
+    color: #666;
+    font-family: 'SF Mono', monospace;
+}
+
+/* 状態インジケーター */
+.status-indicator-large {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-indicator-large.status-online {
+    background: #2ecc71;
+    animation: pulse 2s infinite;
+}
+
+.status-indicator-large.status-offline {
+    background: #95a5a6;
+}
+
+.status-indicator-large.status-absent {
+    background: #bdc3c7;
+}
+
+/* 従来のスタイル（後方互換性） */
+.online-status {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.online-status h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.online-users-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.user-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #2ecc71;
+}
+
+.user-card .user-name {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.user-card .checkin-time {
+    font-size: 0.9em;
+    color: #666;
+    font-family: monospace;
+}
+
+.user-status {
+    font-size: 0.85em;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.time-info {
+    font-size: 0.8em;
+    color: #666;
+    font-family: monospace;
+}
+
+.status-offline {
+    background: #95a5a6;
+    animation: none;
+}
+
+.status-absent {
+    background: #bdc3c7;
+    animation: none;
+}
+
+.message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    min-width: 250px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transform: translateX(calc(100% + 20px));
+    transition: transform 0.3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.message.show {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.status-online {
+    background: #2ecc71;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* 出勤履歴 */
+.history-header {
+    margin-bottom: 30px;
+}
+
+.history-header h3 {
+    color: #667eea;
+    margin-bottom: 20px;
+}
+
+.history-summary {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.summary-item {
+    background: #f8f9fa;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.summary-label {
+    display: block;
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.summary-value {
+    display: block;
+    color: #333;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+.history-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.history-records {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.history-record {
+    background: white;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.record-date {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.record-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.record-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.record-label {
+    color: #666;
+    font-size: 0.85em;
+    margin-bottom: 3px;
+}
+
+.record-value {
+    color: #333;
+    font-weight: 500;
+}
+
+.record-status {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+    display: inline-block;
+    width: fit-content;
+}
+
+.status-completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-working {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.working-hours {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-style: italic;
+}
+
+/* 通知バッジ */
+.notification-badge {
+    background: #e74c3c;
+    color: white;
+    border-radius: 10px;
+    padding: 2px 6px;
+    font-size: 0.75em;
+    margin-left: 5px;
+    min-width: 16px;
+    text-align: center;
+    display: inline-block;
+}
+
+/* 管理画面 */
+.admin-header h3 {
+    color: #667eea;
+    margin-bottom: 20px;
+}
+
+.admin-menu {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.admin-menu-btn {
+    background: #f8f9fa;
+    border: 2px solid #e1e1e1;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #666;
+    position: relative;
+}
+
+.admin-menu-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.admin-menu-btn:hover {
+    border-color: #667eea;
+    transform: none;
+    box-shadow: none;
+}
+
+.admin-content {
+    display: block;
+}
+
+.admin-content.hidden {
+    display: none;
+}
+
+.admin-content h4 {
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e1e1e1;
+    padding-bottom: 10px;
+}
+
+/* 従業員統計 */
+.employee-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.employee-card {
+    background: white;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.employee-name {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.employee-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.85em;
+    margin-bottom: 3px;
+}
+
+.stat-value {
+    color: #333;
+    font-weight: 600;
+}
+
+.consecutive-days {
+    color: #667eea;
+    font-weight: 700;
+}
+
+.bonus-amount {
+    color: #e74c3c;
+    font-weight: 700;
+}
+
+/* 通知リスト */
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.notification-item {
+    background: white;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.notification-item.unread {
+    border-left: 4px solid #667eea;
+    background: #f8f9ff;
+}
+
+.notification-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.notification-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.notification-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.notification-date {
+    color: #666;
+    font-size: 0.85em;
+}
+
+.notification-message {
+    color: #555;
+    line-height: 1.5;
+}
+
+.notification-details {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e1e1e1;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* ボーナス履歴 */
+.bonuses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.bonus-item {
+    background: white;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #2ecc71;
+}
+
+.bonus-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.bonus-employee {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.bonus-amount-large {
+    color: #2ecc71;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.bonus-details {
+    color: #555;
+    line-height: 1.5;
+}
+
+.status-paid {
+    color: #2ecc71;
+    font-weight: 600;
+}
+
+.status-unpaid {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+/* 右側固定メニュー */
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(180deg, #8b4513 0%, #a0522d 50%, #cd853f 100%);
+    color: white;
+    z-index: 2000;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.side-menu.hidden {
+    transform: translateX(100%);
+}
+
+.side-menu-header {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #d4af37;
+}
+
+.side-menu-header h3 {
+    margin: 0;
+    font-size: 1.3em;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.toggle-btn:hover {
+    background: rgba(212, 175, 55, 0.3);
+    transform: rotate(90deg);
+}
+
+.side-menu-content {
+    padding: 20px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: white;
+    border: 2px solid transparent;
+}
+
+.menu-item:hover {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: #d4af37;
+    transform: translateX(-5px);
+}
+
+.menu-icon {
+    font-size: 1.5em;
+    width: 30px;
+    text-align: center;
+}
+
+.menu-item span {
+    font-weight: 500;
+}
+
+/* メニュー表示ボタン */
+.show-menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, #8b4513, #a0522d);
+    color: white;
+    border: 2px solid #d4af37;
+    border-radius: 50%;
+    font-size: 1.2em;
+    cursor: pointer;
+    z-index: 1999;
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.4);
+    transition: all 0.3s;
+}
+
+.show-menu-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(139, 69, 19, 0.6);
+}
+
+.show-menu-btn.hidden {
+    display: none;
+}
+
+/* メインコンテンツの調整 */
+#mainScreen {
+    transition: margin-right 0.3s ease;
+}
+
+#mainScreen.menu-open {
+    margin-right: 280px;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .login-form, main {
+        padding: 20px;
+    }
+    
+    header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .attendance-controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .btn-checkin, .btn-checkout {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .online-users-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .employee-item {
+        padding: 12px;
+        gap: 12px;
+    }
+    
+    .avatar-circle {
+        width: 40px;
+        height: 40px;
+        font-size: 1em;
+    }
+    
+    .employee-name {
+        font-size: 1em;
+    }
+    
+    .employee-status {
+        font-size: 0.8em;
+    }
+    
+    .employee-time {
+        font-size: 0.75em;
+    }
+    
+    .employee-name {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .role-badge {
+        font-size: 0.6em;
+        padding: 1px 6px;
+    }
+    
+    .message {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+        text-align: center;
+    }
+    
+    /* モバイルでのサイドメニュー調整 */
+    .side-menu {
+        width: 100%;
+    }
+    
+    #mainScreen.menu-open {
+        margin-right: 0;
+    }
+    
+    .show-menu-btn {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1em;
+    }
+}

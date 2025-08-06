@@ -1,0 +1,18 @@
+[
+  {
+    "userId": 1,
+    "userName": "真田 小夜",
+    "date": "2025-08-06",
+    "checkinTime": "2025-08-06T08:52:41.355Z",
+    "checkoutTime": null,
+    "status": "online"
+  },
+  {
+    "userId": 2,
+    "userName": "test1",
+    "date": "2025-08-06",
+    "checkinTime": "2025-08-06T08:42:05.964Z",
+    "checkoutTime": "2025-08-06T08:42:07.758Z",
+    "status": "offline"
+  }
+]

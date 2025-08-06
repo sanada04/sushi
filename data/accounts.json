@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "真田 小夜",
+    "username": "sanada",
+    "password": "sanada",
+    "role": "owner"
+  },
+  {
+    "id": 2,
+    "name": "test1",
+    "username": "test1",
+    "password": "test123",
+    "role": "employee"
+  }
+]
