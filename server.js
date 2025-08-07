@@ -14,6 +14,11 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static('public'));
 app.use(express.json());
 
+// ルートパスでindex.htmlを提供
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // データファイルのパス
 const ACCOUNTS_FILE = path.join(__dirname, 'data', 'accounts.json');
 const ATTENDANCE_FILE = path.join(__dirname, 'data', 'attendance.json');

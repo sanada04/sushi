@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "sushi-attendance-system",
   "builds": [
     {
       "src": "server.js",
@@ -19,10 +18,5 @@
   ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "functions": {
-    "server.js": {
-      "maxDuration": 30
-    }
   }
 }
