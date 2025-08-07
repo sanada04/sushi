@@ -11,8 +11,19 @@ const io = socketIo(server);
 const PORT = process.env.PORT || 3000;
 
 // 静的ファイルの提供
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+
+// 静的ファイルのMIMEタイプを明示的に設定
+app.get('*.css', (req, res, next) => {
+    res.set('Content-Type', 'text/css');
+    next();
+});
+
+app.get('*.js', (req, res, next) => {
+    res.set('Content-Type', 'application/javascript');
+    next();
+});
 
 // ルートパスでindex.htmlを提供
 app.get('/', (req, res) => {
