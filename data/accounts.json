@@ -4,23 +4,5 @@
     "name": "真田 小夜",
     "username": "sanada",
     "role": "owner"
-  },
-  {
-    "id": 2,
-    "name": "test1",
-    "username": "test1",
-    "role": "assistant_manager"
-  },
-  {
-    "id": 3,
-    "name": "田中 太郎",
-    "username": "tanaka",
-    "role": "manager"
-  },
-  {
-    "id": 4,
-    "name": "佐藤 花子",
-    "username": "sato",
-    "role": "store_manager"
   }
 ]
