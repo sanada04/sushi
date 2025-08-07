@@ -256,35 +256,31 @@ function createBonusNotification(userId, consecutiveDays) {
 
 // ログイン
 app.post('/api/login', (req, res) => {
-    const { username, password } = req.body;
+    const { username } = req.body;
     const accounts = getAccounts();
     
     const user = accounts.find(account => 
-        account.username === username && account.password === password
+        account.username === username
     );
     
     if (user) {
         res.json({ success: true, user: { id: user.id, name: user.name, username: user.username, role: user.role || 'employee' } });
     } else {
-        res.json({ success: false, message: 'ユーザー名またはパスワードが間違っています' });
+        res.json({ success: false, message: 'ユーザー名が見つかりません' });
     }
 });
 
 // 新規登録
 app.post('/api/register', (req, res) => {
-    const { name, username, password } = req.body;
+    const { name, username } = req.body;
     
     // 入力検証
-    if (!name || !username || !password) {
+    if (!name || !username) {
         return res.json({ success: false, message: '全ての項目を入力してください' });
     }
     
     if (username.length < 3) {
         return res.json({ success: false, message: 'ユーザー名は3文字以上で入力してください' });
-    }
-    
-    if (password.length < 6) {
-        return res.json({ success: false, message: 'パスワードは6文字以上で入力してください' });
     }
     
     const accounts = getAccounts();
@@ -303,7 +299,6 @@ app.post('/api/register', (req, res) => {
         id: newId,
         name: name,
         username: username,
-        password: password,
         role: 'employee'
     };
     
@@ -470,7 +465,7 @@ app.get('/api/admin/employee-stats', (req, res) => {
     const attendanceData = getAttendanceData();
     const bonuses = getBonuses();
     
-    const employees = accounts.filter(account => account.role === 'employee');
+    const employees = accounts.filter(account => account.role !== 'owner');
     
     const stats = employees.map(employee => {
         const userRecords = attendanceData.filter(record => record.userId === employee.id);
@@ -502,6 +497,7 @@ app.get('/api/admin/employee-stats', (req, res) => {
             id: employee.id,
             name: employee.name,
             username: employee.username,
+            role: employee.role,
             totalWorkDays: completedDays,
             consecutiveDays: consecutiveDays,
             monthlyWorkDays: thisMonthRecords.length,
@@ -552,6 +548,97 @@ app.post('/api/admin/create-test-notification', (req, res) => {
     
     createBonusNotification(userId, consecutiveDays);
     res.json({ success: true, message: 'テスト通知を作成しました' });
+});
+
+// 役職変更（管理職以上）
+app.post('/api/admin/change-role', (req, res) => {
+    const { userId, newRole, currentUserId } = req.body;
+    
+    // 入力検証
+    if (!userId || !newRole || !currentUserId) {
+        return res.json({ success: false, message: '必要な情報が不足しています' });
+    }
+    
+    // 権限チェック用のヘルパー関数
+    const getRoleLevel = (role) => {
+        const levels = {
+            'owner': 5,
+            'store_manager': 4,
+            'assistant_manager': 3,
+            'manager': 2,
+            'employee': 1
+        };
+        return levels[role] || 0;
+    };
+    
+    const canChangeRole = (managerRole, targetRole, newRole) => {
+        const managerLevel = getRoleLevel(managerRole);
+        const targetLevel = getRoleLevel(targetRole);
+        const newLevel = getRoleLevel(newRole);
+        
+        // 管理者は自分より下位の役職のみ変更可能
+        // また、変更先の役職も自分より下位である必要がある
+        return managerLevel > targetLevel && managerLevel > newLevel;
+    };
+    
+    // 有効な役職かチェック
+    const validRoles = ['owner', 'store_manager', 'assistant_manager', 'manager', 'employee'];
+    if (!validRoles.includes(newRole)) {
+        return res.json({ success: false, message: '無効な役職です' });
+    }
+    
+    try {
+        const accounts = getAccounts();
+        
+        // 権限を持つユーザー（リクエスト送信者）を確認
+        const currentUserIndex = accounts.findIndex(account => account.id === parseInt(currentUserId));
+        if (currentUserIndex === -1) {
+            return res.json({ success: false, message: '権限の確認に失敗しました' });
+        }
+        
+        const currentUser = accounts[currentUserIndex];
+        
+        // 最低でもマネージャー以上の権限が必要
+        if (getRoleLevel(currentUser.role) < 2) {
+            return res.json({ success: false, message: '役職変更の権限がありません' });
+        }
+        
+        const userIndex = accounts.findIndex(account => account.id === parseInt(userId));
+        
+        if (userIndex === -1) {
+            return res.json({ success: false, message: 'ユーザーが見つかりません' });
+        }
+        
+        const targetUser = accounts[userIndex];
+        
+        // オーナーの役職変更は禁止
+        if (targetUser.role === 'owner') {
+            return res.json({ success: false, message: 'オーナーの役職は変更できません' });
+        }
+        
+        // 権限チェック：自分より上位または同等の役職は変更できない
+        if (!canChangeRole(currentUser.role, targetUser.role, newRole)) {
+            return res.json({ success: false, message: '指定された役職への変更権限がありません' });
+        }
+        
+        const oldRole = accounts[userIndex].role;
+        accounts[userIndex].role = newRole;
+        
+        // ファイルに保存
+        fs.writeFileSync(ACCOUNTS_FILE, JSON.stringify(accounts, null, 2));
+        
+        console.log(`役職変更: ${accounts[userIndex].name} (${oldRole} → ${newRole})`);
+        
+        res.json({ 
+            success: true, 
+            message: `${accounts[userIndex].name}の役職を変更しました`,
+            user: accounts[userIndex]
+        });
+        
+    } catch (error) {
+        console.error('役職変更エラー:', error);
+        res.json({ success: false, message: '役職変更に失敗しました' });
+    }
 });
 
 // Socket.IO 接続処理

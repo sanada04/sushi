@@ -6,6 +6,7 @@
 <title>勤怠管理システム</title>
 <link rel="stylesheet" href="style.css">
 <script src="/socket.io/socket.io.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 </head>
 <body>
 <div class="container">
@@ -22,24 +23,13 @@
 <label for="loginUsername">ユーザー名:</label>
 <input type="text" id="loginUsername" required>
 </div>
-<div class="form-group">
-<label for="loginPassword">パスワード:</label>
-<input type="password" id="loginPassword" required>
-</div>
+
 <button type="submit">ログイン</button>
 </form>
 <div id="loginError" class="error-message"></div>
 
 <div class="switch-form">
 <p>アカウントをお持ちでない方は <button type="button" id="showRegisterBtn" class="link-btn">新規登録</button></p>
-</div>
-
-<div class="demo-accounts">
-<h3>オーナーアカウント</h3>
-<p>管理者ログイン:</p>
-<ul>
-<li>sanada / sanada</li>
-</ul>
 </div>
 </div>
 
@@ -56,15 +46,7 @@
 <input type="text" id="registerUsername" required minlength="3">
 <small>3文字以上で入力してください</small>
 </div>
-<div class="form-group">
-<label for="registerPassword">パスワード:</label>
-<input type="password" id="registerPassword" required minlength="6">
-<small>6文字以上で入力してください</small>
-</div>
-<div class="form-group">
-<label for="registerPasswordConfirm">パスワード確認:</label>
-<input type="password" id="registerPasswordConfirm" required minlength="6">
-</div>
+
 <button type="submit">登録</button>
 </form>
 <div id="registerError" class="error-message"></div>
@@ -77,40 +59,43 @@
 </div>
 </div>
 
-        <!-- メイン画面 -->
-        <div id="mainScreen" class="screen hidden">
-            <!-- 右側固定メニュー -->
-            <div id="sideMenu" class="side-menu">
-                <div class="side-menu-header">
-                    <h3>メニュー</h3>
-                    <button id="toggleSideMenu" class="toggle-btn">×</button>
-                </div>
-                <div class="side-menu-content">
-                    <a href="accounting.html" class="menu-item">
-                        <div class="menu-icon">💰</div>
-                        <span>会計システム</span>
-                    </a>
-                    <div class="menu-item" onclick="showMessage('機能準備中です', 'success')">
-                        <div class="menu-icon">📊</div>
-                        <span>レポート</span>
-                    </div>
-                    <div class="menu-item" onclick="showMessage('機能準備中です', 'success')">
-                        <div class="menu-icon">⚙️</div>
-                        <span>設定</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- メニュートグルボタン -->
-            <button id="showSideMenu" class="show-menu-btn hidden">☰</button>
-            
-            <header>
-                <h1>🍣 寿司の華 - 勤怠管理システム</h1>
-                <div class="user-info">
-                    <span id="userName"></span>
-                    <button id="logoutBtn">ログアウト</button>
-                </div>
-            </header>
+<!-- メイン画面 -->
+<div id="mainScreen" class="screen hidden">
+<!-- 右側固定メニュー -->
+<div id="sideMenu" class="side-menu">
+<div class="side-menu-header">
+<h3>メニュー</h3>
+<button id="toggleSideMenu" class="toggle-btn">×</button>
+</div>
+<div class="side-menu-content">
+<a href="/accounting.html" class="menu-item">
+<div class="menu-icon">💰</div>
+<span>会計システム</span>
+</a>
+<div class="menu-item" onclick="showMessage('機能準備中です', 'success')">
+<div class="menu-icon">📊</div>
+<span>レポート</span>
+</div>
+<div class="menu-item" onclick="showMessage('機能準備中です', 'success')">
+<div class="menu-icon">⚙️</div>
+<span>設定</span>
+</div>
+</div>
+</div>
+
+<!-- メニュートグルボタン -->
+<button id="showSideMenu" class="show-menu-btn hidden">☰</button>
+
+<header>
+<h1>勤怠管理システム</h1>
+<div class="user-info">
+<div>
+<i class="fas fa-user"></i>
+<span id="userName"></span>
+</div>
+<button id="logoutBtn">ログアウト</button>
+</div>
+</header>
 
 <main>
 <!-- タブメニュー -->
@@ -137,11 +122,11 @@
 <div id="currentTime"></div>
 </div>
 
-                    <!-- 出勤状況表示 -->
-                    <div class="attendance-status">
-                        <h3>メンバー一覧 <span class="online-count" id="onlineCount">0</span>人出勤中</h3>
-                        <div id="onlineUsers" class="employee-list"></div>
-                    </div>
+<!-- 出勤状況表示 -->
+<div class="attendance-status">
+<h3>メンバー一覧 <span class="online-count" id="onlineCount">0</span>人出勤中</h3>
+<div id="onlineUsers" class="employee-list"></div>
+</div>
 </div>
 
 <!-- 出勤履歴画面 -->
@@ -176,6 +161,7 @@
 <!-- 管理メニュー -->
 <div class="admin-menu">
 <button id="employeeStatsBtn" class="admin-menu-btn active">従業員統計</button>
+<button id="roleManagementBtn" class="admin-menu-btn">役職管理</button>
 <button id="notificationsBtn" class="admin-menu-btn">
 通知管理
 <span id="unreadCount" class="notification-badge hidden">0</span>
@@ -188,6 +174,14 @@
 <h4>従業員出勤統計</h4>
 <div id="employeeStats" class="employee-stats"></div>
 <div id="statsLoading" class="loading hidden">読み込み中...</div>
+</div>
+
+<!-- 役職管理 -->
+<div id="roleManagementContent" class="admin-content hidden">
+<h4>役職管理</h4>
+<div id="roleManagementList" class="role-management-list"></div>
+<div id="roleLoading" class="loading hidden">読み込み中...</div>
+<div id="roleEmpty" class="empty-message hidden">従業員がいません</div>
 </div>
 
 <!-- 通知管理 -->

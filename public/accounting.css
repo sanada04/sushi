@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #2c1810 0%, #3d2817 50%, #4a3425 100%);
+    background: #f5f7fa;
     min-height: 100vh;
     color: #333;
     transition: margin-right 0.3s ease;
@@ -27,14 +27,14 @@ body.menu-open {
 
 /* ヘッダー */
 .accounting-header {
-    background: linear-gradient(45deg, #8b4513, #a0522d, #cd853f);
-    color: white;
+    background: white;
+    color: #2c3e50;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-bottom: 2px solid #d4af37;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #e1e5e9;
 }
 
 .accounting-header h1 {
@@ -44,18 +44,17 @@ body.menu-open {
 .close-btn {
     background: rgba(255, 255, 255, 0.2);
     border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
+    color: #2c3e50;
     width: 40px;
     height: 40px;
     border-radius: 50%;
     font-size: 1.5em;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: opacity 0.3s;
 }
 
 .close-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: rotate(90deg);
+    opacity: 0.8;
 }
 
 /* メインコンテンツ */
@@ -69,19 +68,19 @@ body.menu-open {
 
 /* 商品選択エリア */
 .product-section {
-    background: linear-gradient(135deg, #f5f1eb, #ede4d3);
+    background: white;
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border: 2px solid #d4af37;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e5e9;
 }
 
 .product-section h2 {
-    color: #8b4513;
+    color: #2c3e50;
     margin-bottom: 20px;
-    border-bottom: 2px solid #a0522d;
+    border-bottom: 1px solid #e1e5e9;
     padding-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
 }
 
 .product-grid {
@@ -92,28 +91,28 @@ body.menu-open {
 }
 
 .product-item {
-    background: linear-gradient(135deg, #ffffff, #faf8f3);
-    border: 2px solid #d4af37;
-    border-radius: 12px;
+    background: #f8f9fa;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
     padding: 15px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .product-item:hover {
-    border-color: #a0522d;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(160, 82, 45, 0.25);
-    background: linear-gradient(135deg, #f5f1eb, #ede4d3);
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.15);
+    background: white;
 }
 
 .product-item.selected {
-    border-color: #8b4513;
-    background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+    border-color: #007bff;
+    background: #007bff;
     color: white;
-    box-shadow: 0 6px 16px rgba(139, 69, 19, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
 }
 
 .product-emoji {
@@ -183,22 +182,22 @@ body.menu-open {
 
 /* 計算エリア */
 .calculation-section {
-    background: linear-gradient(135deg, #f5f1eb, #ffffff);
-    border: 2px solid #d4af37;
-    border-radius: 12px;
+    background: white;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     height: fit-content;
     position: sticky;
     top: 20px;
 }
 
 .calculation-section h2 {
-    color: #8b4513;
+    color: #2c3e50;
     margin-bottom: 20px;
-    border-bottom: 2px solid #a0522d;
+    border-bottom: 1px solid #e1e5e9;
     padding-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
 }
 
 /* 選択した商品一覧 */
@@ -333,26 +332,26 @@ body.menu-open {
 }
 
 .copy-btn {
-    background: linear-gradient(45deg, #d4af37, #daa520);
-    color: #5d4e37;
-    font-weight: bold;
+    background: #007bff;
+    color: white;
+    font-weight: 500;
 }
 
 .copy-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
-    background: linear-gradient(45deg, #daa520, #b8860b);
-    color: white;
+    background: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
 }
 
 .clear-btn {
-    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    background: #6c757d;
     color: white;
 }
 
 .clear-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+    background: #5a6268;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.25);
 }
 
 /* コピーメッセージ */
@@ -389,12 +388,13 @@ body.menu-open {
     right: 0;
     width: 280px;
     height: 100vh;
-    background: linear-gradient(180deg, #8b4513 0%, #a0522d 50%, #cd853f 100%);
-    color: white;
+    background: white;
+    color: #2c3e50;
     z-index: 2000;
     transform: translateX(0);
     transition: transform 0.3s ease;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    border-left: 1px solid #e1e5e9;
 }
 
 .side-menu.hidden {
@@ -403,37 +403,39 @@ body.menu-open {
 
 .side-menu-header {
     padding: 20px;
-    background: rgba(0, 0, 0, 0.2);
+    background: #f8f9fa;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #d4af37;
+    border-bottom: 1px solid #e1e5e9;
 }
 
 .side-menu-header h3 {
     margin: 0;
     font-size: 1.3em;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .toggle-btn {
     background: none;
-    border: none;
-    color: white;
+    border: 1px solid transparent;
+    color: #6c757d;
     font-size: 1.5em;
     cursor: pointer;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s;
+    transition: border-color 0.2s;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .toggle-btn:hover {
-    background: rgba(212, 175, 55, 0.3);
-    transform: rotate(90deg);
+    border-color: #007bff;
 }
 
 .side-menu-content {
@@ -444,27 +446,26 @@ body.menu-open {
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 15px;
-    margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    background: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
     text-decoration: none;
-    color: white;
-    border: 2px solid transparent;
+    color: #6c757d;
+    border: none;
 }
 
 .menu-item:hover {
-    background: rgba(212, 175, 55, 0.2);
-    border-color: #d4af37;
-    transform: translateX(-5px);
+    background: #f8f9fa;
+    color: #007bff;
 }
 
 .menu-item.active {
-    background: rgba(212, 175, 55, 0.3);
-    border-color: #d4af37;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    background: #e7f3ff;
+    color: #007bff;
+    font-weight: 500;
 }
 
 .menu-icon {
@@ -482,22 +483,23 @@ body.menu-open {
     position: fixed;
     top: 20px;
     right: 20px;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(45deg, #8b4513, #a0522d);
-    color: white;
-    border: 2px solid #d4af37;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background: white;
+    color: #6c757d;
+    border: 1px solid #e1e5e9;
+    border-radius: 4px;
     font-size: 1.2em;
     cursor: pointer;
     z-index: 1999;
-    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.4);
-    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
 }
 
 .show-menu-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(139, 69, 19, 0.6);
+    background: #f8f9fa;
+    color: #007bff;
+    border-color: #007bff;
 }
 
 .show-menu-btn.hidden {

@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #2c1810 0%, #3d2817 50%, #4a3425 100%);
+    background: #f5f7fa;
     min-height: 100vh;
     color: #333;
 }
@@ -30,24 +30,25 @@ body {
 
 /* ログイン画面 */
 .login-form {
-    background: linear-gradient(135deg, #f5f1eb 0%, #ede4d3 100%);
+    background: white;
     padding: 40px;
-    border-radius: 15px;
-    border: 2px solid #d4af37;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 1px solid #e1e5e9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 .login-form h1 {
-    color: #8b4513;
+    color: #2c3e50;
     margin-bottom: 10px;
     font-size: 2.5em;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
 }
 
 .login-form h2 {
     margin-bottom: 30px;
-    color: #5d4e37;
+    color: #6c757d;
+    font-weight: 400;
 }
 
 .form-group {
@@ -171,13 +172,13 @@ button:hover {
 }
 
 header {
-    background: linear-gradient(45deg, #8b4513, #a0522d, #cd853f);
-    color: white;
+    background: white;
+    color: #2c3e50;
     padding: 20px;
-    border: 2px solid #d4af37;
-    border-radius: 12px;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -194,21 +195,20 @@ header h1 {
 }
 
 #logoutBtn {
-    background: rgba(212, 175, 55, 0.8);
-    border: 2px solid #d4af37;
-    color: #5d4e37;
+    background: #6c757d;
+    border: 1px solid #6c757d;
+    color: white;
     padding: 8px 16px;
     font-size: 14px;
-    font-weight: bold;
-    border-radius: 20px;
+    font-weight: 500;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
 }
 
 #logoutBtn:hover {
-    background: #d4af37;
-    color: white;
-    transform: scale(1.05);
+    background: #5a6268;
+    border-color: #5a6268;
 }
 
 main {
@@ -218,11 +218,11 @@ main {
 /* タブメニュー */
 .tab-menu {
     display: flex;
-    border-bottom: 2px solid #d4af37;
+    border-bottom: 1px solid #e1e5e9;
     margin-bottom: 30px;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
-    border-radius: 8px 8px 0 0;
-    padding: 5px;
+    background: white;
+    border-radius: 4px 4px 0 0;
+    padding: 0;
 }
 
 .tab-btn {
@@ -231,25 +231,22 @@ main {
     padding: 15px 30px;
     font-size: 16px;
     cursor: pointer;
-    border-bottom: 3px solid transparent;
-    border-radius: 8px 8px 0 0;
-    transition: all 0.3s;
-    color: #666;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    color: #6c757d;
+    font-weight: 500;
 }
 
 .tab-btn.active {
-    color: #8b4513;
-    border-bottom-color: #a0522d;
+    color: #007bff;
+    border-bottom-color: #007bff;
     font-weight: 600;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.1));
-    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.2);
+    background: #f8f9fa;
 }
 
 .tab-btn:hover {
-    color: #8b4513;
-    background: rgba(212, 175, 55, 0.2);
-    transform: none;
-    box-shadow: none;
+    color: #007bff;
+    background: #f8f9fa;
 }
 
 .tab-content {
@@ -439,6 +436,30 @@ main {
     box-shadow: 0 2px 4px rgba(243, 156, 18, 0.3);
 }
 
+.role-badge.store_manager {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.role-badge.assistant_manager {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+}
+
+.role-badge.manager {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: white;
+    box-shadow: 0 2px 4px rgba(255, 152, 0, 0.3);
+}
+
+.role-badge.employee {
+    background: linear-gradient(135deg, #9E9E9E, #757575);
+    color: white;
+    box-shadow: 0 2px 4px rgba(158, 158, 158, 0.3);
+}
+
 .employee-status {
     font-size: 0.9em;
     font-weight: 600;
@@ -557,7 +578,7 @@ main {
     font-weight: 600;
     min-width: 250px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
+    z-index: 9999;
     transform: translateX(calc(100% + 20px));
     transition: transform 0.3s ease-in-out;
     opacity: 0;
@@ -963,12 +984,13 @@ main {
     right: 0;
     width: 280px;
     height: 100vh;
-    background: linear-gradient(180deg, #8b4513 0%, #a0522d 50%, #cd853f 100%);
-    color: white;
+    background: white;
+    color: #2c3e50;
     z-index: 2000;
     transform: translateX(0);
     transition: transform 0.3s ease;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    border-left: 1px solid #e1e5e9;
 }
 
 .side-menu.hidden {
@@ -977,11 +999,11 @@ main {
 
 .side-menu-header {
     padding: 20px;
-    background: rgba(0, 0, 0, 0.2);
+    background: #f8f9fa;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #d4af37;
+    border-bottom: 1px solid #e1e5e9;
 }
 
 .side-menu-header h3 {
@@ -991,22 +1013,27 @@ main {
 
 .toggle-btn {
     background: none;
-    border: none;
-    color: white;
+    border: 2px solid transparent;
+    color: #6c757d;
     font-size: 1.5em;
     cursor: pointer;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s;
+    transition: border-color 0.2s;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .toggle-btn:hover {
-    background: rgba(212, 175, 55, 0.3);
-    transform: rotate(90deg);
+    border-color: #007bff;
+    transform: translateY(0);
+    box-shadow: none;
 }
 
 .side-menu-content {
@@ -1017,21 +1044,20 @@ main {
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 15px;
-    margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    background: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
     text-decoration: none;
-    color: white;
-    border: 2px solid transparent;
+    color: #6c757d;
+    border: none;
 }
 
 .menu-item:hover {
-    background: rgba(212, 175, 55, 0.2);
-    border-color: #d4af37;
-    transform: translateX(-5px);
+    background: #f8f9fa;
+    color: #007bff;
 }
 
 .menu-icon {
@@ -1049,22 +1075,27 @@ main {
     position: fixed;
     top: 20px;
     right: 20px;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(45deg, #8b4513, #a0522d);
-    color: white;
-    border: 2px solid #d4af37;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background: white;
+    color: #6c757d;
+    border: 2px solid transparent;
+    border-radius: 4px;
     font-size: 1.2em;
     cursor: pointer;
     z-index: 1999;
-    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.4);
-    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .show-menu-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(139, 69, 19, 0.6);
+    transform: translateY(0);
+    box-shadow: none;
+    border-color: #007bff;
 }
 
 .show-menu-btn.hidden {
@@ -1078,6 +1109,90 @@ main {
 
 #mainScreen.menu-open {
     margin-right: 280px;
+}
+
+/* 役職管理 */
+.role-management-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.role-management-item {
+    background: white;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.role-management-item .employee-info {
+    flex: 1;
+}
+
+.role-management-item .employee-name {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+.role-management-item .current-role {
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.role-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.role-select {
+    padding: 8px 12px;
+    border: 1px solid #e1e5e9;
+    border-radius: 4px;
+    background: white;
+    font-size: 14px;
+    min-width: 120px;
+}
+
+.role-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.role-select:disabled {
+    background: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.change-role-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.change-role-btn:hover:not(:disabled) {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+.change-role-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* レスポンシブデザイン */
@@ -1167,5 +1282,21 @@ main {
         width: 40px;
         height: 40px;
         font-size: 1em;
+    }
+    
+    /* モバイルでの役職管理調整 */
+    .role-management-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+    
+    .role-controls {
+        justify-content: space-between;
+    }
+    
+    .role-select {
+        flex: 1;
+        min-width: auto;
     }
 }

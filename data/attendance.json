@@ -14,5 +14,13 @@
     "checkinTime": "2025-08-06T08:42:05.964Z",
     "checkoutTime": "2025-08-06T08:42:07.758Z",
     "status": "offline"
+  },
+  {
+    "userId": 1,
+    "userName": "真田 小夜",
+    "date": "2025-08-07",
+    "checkinTime": "2025-08-07T01:48:00.312Z",
+    "checkoutTime": "2025-08-07T01:48:37.771Z",
+    "status": "offline"
   }
 ]

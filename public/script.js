@@ -34,9 +34,11 @@ const adminTab = document.getElementById('adminTab');
 const adminContent = document.getElementById('adminContent');
 const notificationBadge = document.getElementById('notificationBadge');
 const employeeStatsBtn = document.getElementById('employeeStatsBtn');
+const roleManagementBtn = document.getElementById('roleManagementBtn');
 const notificationsBtn = document.getElementById('notificationsBtn');
 const bonusesBtn = document.getElementById('bonusesBtn');
 const employeeStatsContent = document.getElementById('employeeStatsContent');
+const roleManagementContent = document.getElementById('roleManagementContent');
 const notificationsContent = document.getElementById('notificationsContent');
 const bonusesContent = document.getElementById('bonusesContent');
 const sideMenu = document.getElementById('sideMenu');
@@ -87,12 +89,13 @@ function restoreLoginState() {
     }
 }
 
-// オーナー権限をチェックして管理画面タブを表示
-function checkOwnerPermissions() {
-    if (currentUser && currentUser.role === 'owner') {
+// 管理権限をチェックして管理画面タブを表示
+function checkAdminPermissions() {
+    const hasAdminRights = currentUser && ['owner', 'store_manager', 'manager'].includes(currentUser.role);
+    if (hasAdminRights) {
         adminTab.classList.remove('hidden');
         updateNotificationBadge();
-        console.log('オーナー権限を確認しました。管理画面を表示します。');
+        console.log('管理権限を確認しました。管理画面を表示します。');
     } else {
         adminTab.classList.add('hidden');
         notificationBadge.classList.add('hidden');
@@ -178,6 +181,11 @@ employeeStatsBtn.addEventListener('click', () => {
     loadEmployeeStats();
 });
 
+roleManagementBtn.addEventListener('click', () => {
+    switchAdminTab('roleManagement');
+    loadRoleManagement();
+});
+
 notificationsBtn.addEventListener('click', () => {
     switchAdminTab('notifications');
     loadNotifications();
@@ -191,17 +199,22 @@ bonusesBtn.addEventListener('click', () => {
 function switchAdminTab(tabName) {
     // ボタンの状態を切り替え
     employeeStatsBtn.classList.remove('active');
+    roleManagementBtn.classList.remove('active');
     notificationsBtn.classList.remove('active');
     bonusesBtn.classList.remove('active');
     
     // コンテンツの表示を切り替え
     employeeStatsContent.classList.add('hidden');
+    roleManagementContent.classList.add('hidden');
     notificationsContent.classList.add('hidden');
     bonusesContent.classList.add('hidden');
     
     if (tabName === 'employeeStats') {
         employeeStatsBtn.classList.add('active');
         employeeStatsContent.classList.remove('hidden');
+    } else if (tabName === 'roleManagement') {
+        roleManagementBtn.classList.add('active');
+        roleManagementContent.classList.remove('hidden');
     } else if (tabName === 'notifications') {
         notificationsBtn.classList.add('active');
         notificationsContent.classList.remove('hidden');
@@ -275,7 +288,6 @@ loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const username = document.getElementById('loginUsername').value;
-    const password = document.getElementById('loginPassword').value;
     
     try {
         const response = await fetch('/api/login', {
@@ -283,7 +295,7 @@ loginForm.addEventListener('submit', async (e) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ username })
         });
         
         const result = await response.json();
@@ -295,8 +307,8 @@ loginForm.addEventListener('submit', async (e) => {
             // セッションを保存
             saveSession(currentUser);
             
-            // オーナー権限をチェック
-            checkOwnerPermissions();
+            // 管理権限をチェック
+            checkAdminPermissions();
             
             loginScreen.classList.add('hidden');
             mainScreen.classList.remove('hidden');
@@ -324,14 +336,6 @@ registerForm.addEventListener('submit', async (e) => {
     
     const name = document.getElementById('registerName').value;
     const username = document.getElementById('registerUsername').value;
-    const password = document.getElementById('registerPassword').value;
-    const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
-    
-    // パスワード確認チェック
-    if (password !== passwordConfirm) {
-        registerError.textContent = 'パスワードが一致しません';
-        return;
-    }
     
     try {
         const response = await fetch('/api/register', {
@@ -339,7 +343,7 @@ registerForm.addEventListener('submit', async (e) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, username, password })
+            body: JSON.stringify({ name, username })
         });
         
         const result = await response.json();
@@ -355,7 +359,6 @@ registerForm.addEventListener('submit', async (e) => {
                 
                 // 登録したユーザー名をログインフォームに入力
                 document.getElementById('loginUsername').value = username;
-                document.getElementById('loginPassword').value = '';
                 
                 clearMessages();
                 registerForm.reset();
@@ -386,8 +389,7 @@ logoutBtn.addEventListener('click', () => {
     loginFormContainer.classList.remove('hidden');
     
     // フォームをクリア
-    document.getElementById('loginUsername').value = '';
-    document.getElementById('loginPassword').value = '';
+            document.getElementById('loginUsername').value = '';
     clearMessages();
     
     showMessage('ログアウトしました', 'success');
@@ -585,9 +587,143 @@ function displayAttendanceHistory(historyData) {
     }).join('');
 }
 
+// 役職管理を読み込み
+async function loadRoleManagement() {
+    if (!currentUser || !['owner', 'store_manager', 'manager'].includes(currentUser.role)) return;
+    
+    try {
+        const roleLoading = document.getElementById('roleLoading');
+        const roleManagementList = document.getElementById('roleManagementList');
+        const roleEmpty = document.getElementById('roleEmpty');
+        
+        roleLoading.classList.remove('hidden');
+        roleEmpty.classList.add('hidden');
+        roleManagementList.innerHTML = '';
+        
+        const response = await fetch('/api/admin/employee-stats');
+        const employees = await response.json();
+        
+        roleLoading.classList.add('hidden');
+        
+        if (employees.length === 0) {
+            roleEmpty.classList.remove('hidden');
+            return;
+        }
+        
+        // 役職の階層レベルを定義
+        const getRoleLevel = (role) => {
+            const levels = {
+                'owner': 5,
+                'store_manager': 4,
+                'assistant_manager': 3,
+                'manager': 2,
+                'employee': 1
+            };
+            return levels[role] || 0;
+        };
+        
+        // 権限チェック関数
+        const canChangeRole = (managerRole, targetRole, newRole) => {
+            const managerLevel = getRoleLevel(managerRole);
+            const targetLevel = getRoleLevel(targetRole);
+            const newLevel = getRoleLevel(newRole);
+            return managerLevel > targetLevel && managerLevel > newLevel;
+        };
+        
+        // 役職の日本語名と色の定義
+        const roleInfo = {
+            'owner': { name: 'オーナー', color: '#ff6b35', disabled: true },
+            'store_manager': { name: '店長', color: '#4CAF50' },
+            'assistant_manager': { name: '副店長', color: '#2196F3' },
+            'manager': { name: 'マネージャー', color: '#FF9800' },
+            'employee': { name: '従業員', color: '#9E9E9E' }
+        };
+        
+        roleManagementList.innerHTML = employees.map(employee => {
+            // 権限に基づいて編集可能かチェック
+            const canEdit = canChangeRole(currentUser.role, employee.role, employee.role);
+            const isDisabled = roleInfo[employee.role]?.disabled || !canEdit;
+            
+            // 現在のユーザーが変更可能な役職のオプションのみ表示
+            const availableRoles = ['employee', 'manager', 'assistant_manager', 'store_manager'].filter(role => {
+                return canChangeRole(currentUser.role, employee.role, role);
+            });
+            
+            return `
+                <div class="role-management-item">
+                    <div class="employee-info">
+                        <div class="employee-name">${employee.name}</div>
+                        <div class="current-role">
+                            現在の役職: <span class="role-badge" style="background-color: ${roleInfo[employee.role]?.color || '#9E9E9E'}">${roleInfo[employee.role]?.name || '不明'}</span>
+                        </div>
+                    </div>
+                    <div class="role-controls">
+                        <select class="role-select" data-user-id="${employee.id}" ${isDisabled ? 'disabled' : ''}>
+                            <option value="employee" ${employee.role === 'employee' ? 'selected' : ''} ${availableRoles.includes('employee') ? '' : 'style="display:none"'}>従業員</option>
+                            <option value="manager" ${employee.role === 'manager' ? 'selected' : ''} ${availableRoles.includes('manager') ? '' : 'style="display:none"'}>マネージャー</option>
+                            <option value="assistant_manager" ${employee.role === 'assistant_manager' ? 'selected' : ''} ${availableRoles.includes('assistant_manager') ? '' : 'style="display:none"'}>副店長</option>
+                            <option value="store_manager" ${employee.role === 'store_manager' ? 'selected' : ''} ${availableRoles.includes('store_manager') ? '' : 'style="display:none"'}>店長</option>
+                        </select>
+                        <button class="change-role-btn" data-user-id="${employee.id}" ${isDisabled ? 'disabled' : ''}>
+                            変更
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        // 役職変更ボタンのイベントリスナーを追加
+        document.querySelectorAll('.change-role-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const userId = e.target.dataset.userId;
+                const select = document.querySelector(`.role-select[data-user-id="${userId}"]`);
+                const newRole = select.value;
+                
+                if (confirm('役職を変更しますか？')) {
+                    await changeEmployeeRole(userId, newRole);
+                }
+            });
+        });
+        
+    } catch (error) {
+        console.error('役職管理の取得エラー:', error);
+        document.getElementById('roleLoading').classList.add('hidden');
+        document.getElementById('roleEmpty').textContent = '役職管理の取得に失敗しました';
+        document.getElementById('roleEmpty').classList.remove('hidden');
+    }
+}
+
+// 従業員の役職を変更
+async function changeEmployeeRole(userId, newRole) {
+    try {
+        const response = await fetch('/api/admin/change-role', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId, newRole, currentUserId: currentUser.id })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showMessage(result.message, 'success');
+            // 役職管理リストを再読み込み
+            loadRoleManagement();
+            // 出勤状況も更新（役職バッジが変わるため）
+            loadAttendanceStatus();
+        } else {
+            showMessage(result.message, 'error');
+        }
+    } catch (error) {
+        console.error('役職変更エラー:', error);
+        showMessage('役職変更に失敗しました', 'error');
+    }
+}
+
 // 従業員統計を読み込み
 async function loadEmployeeStats() {
-    if (!currentUser || currentUser.role !== 'owner') return;
+    if (!currentUser || !['owner', 'store_manager', 'manager'].includes(currentUser.role)) return;
     
     try {
         const statsLoading = document.getElementById('statsLoading');
@@ -843,8 +979,17 @@ function updateAttendanceDisplay(attendanceList) {
                 break;
         }
         
-        // オーナーの場合は特別な表示
-        const roleIndicator = user.userRole === 'owner' ? '<span class="role-badge owner">オーナー</span>' : '';
+        // 役職バッジの表示
+        const roleNames = {
+            'owner': 'オーナー',
+            'store_manager': '店長',
+            'assistant_manager': '副店長',
+            'manager': 'マネージャー',
+            'employee': '従業員'
+        };
+        const roleName = roleNames[user.userRole] || '従業員';
+        const roleClass = user.userRole || 'employee';
+        const roleIndicator = `<span class="role-badge ${roleClass}">${roleName}</span>`;
         
         return `
             <div class="${cardClass}">
@@ -951,9 +1096,8 @@ document.addEventListener('DOMContentLoaded', () => {
         account.style.cursor = 'pointer';
         account.addEventListener('click', () => {
             const text = account.textContent;
-            const [username, password] = text.split(' / ');
+            const username = text.trim();
             document.getElementById('loginUsername').value = username;
-            document.getElementById('loginPassword').value = password;
         });
     });
 });
